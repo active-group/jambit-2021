@@ -60,6 +60,7 @@ object Player {
 
   type Strategy[Effects] = Player => EventProcessor[Effects, GameEvent, GameCommand]
 
+  // Spezialfall braver Spieler, der auf PlayerState
   type Chooser[PlayerId, Effects] = (Player, PlayerState[PlayerId]) => Eff[Effects, Card]
 
   def chooserStrategy[PlayerId, Effects](chooser: Chooser[PlayerId, Effects])

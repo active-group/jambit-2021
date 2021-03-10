@@ -49,6 +49,7 @@ object TableEventSourcing {
 
   def processGameCommandM[Effects: _tableEventSourcing](command: GameCommand): Eff[Effects, Unit] =
     for {
+      // get[Effects, TableState].flatMap(state => ...)
       state <- get[Effects, TableState]
       events = tableProcessCommand(command, state)
       _ <- events.traverseTap(processGameEventM[Effects])

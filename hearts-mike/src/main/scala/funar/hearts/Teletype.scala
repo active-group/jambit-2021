@@ -13,7 +13,7 @@ import cats.Traverse
 import cats.implicits._
 import cats.effect.Console.io._
 
-sealed trait Teletype[+A]
+sealed trait Teletype[A]
 
 object Teletype {
   def readLine[T, R : _io]: Eff[R, String] = 

@@ -84,8 +84,12 @@ object Decode {
         case Left(error) => Left(error)
       }
     }
-
   }
+
+  def map2[A, B, C](a: Decoder[A], b: Decoder[B])(f: (A, B) => C): Decoder[C] =
+//    a.map(a => (b: B) => f(a, b)).ap(b)
+    a.map(f.curried).ap(b)
+
 
   implicit val decoderMonad: Monad[Decoder] = new Monad[Decoder] {
     def flatMap[A, B](decoder: Decoder[A])(f: A => Decoder[B]): Decoder[B] = { Json =>
